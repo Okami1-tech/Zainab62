@@ -2,480 +2,323 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+               maximum-scale=1.0, user-scalable=no">
 
-<title>Nikkah — In Shaa Allah</title>
+<title>NIKKAH — In Shaa Allah</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background: #020003;
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#020003;
 }
 
-body {
-    position: relative;
-    font-family: Georgia, "Times New Roman", serif;
+body{
+    position:relative;
+    font-family:Georgia,"Times New Roman",serif;
 }
 
 /* =========================================================
-   DEEP PURPLE ATMOSPHERE
+   PURPLE ATMOSPHERE
 ========================================================= */
 
-body::before {
-    content: "";
-    position: fixed;
-    width: 90vmin;
-    height: 90vmin;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+.backgroundGlow{
+    position:fixed;
+    width:90vmin;
+    height:90vmin;
+    left:50%;
+    top:48%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
 
     background:
         radial-gradient(
             circle,
-            rgba(138,43,226,.14) 0%,
-            rgba(91,25,150,.07) 30%,
-            transparent 70%
+            rgba(138,43,226,.15),
+            rgba(91,20,150,.06) 38%,
+            transparent 72%
         );
 
-    filter: blur(35px);
-    pointer-events: none;
+    filter:blur(35px);
+    pointer-events:none;
 }
-
-/* subtle moving purple light */
-
-body::after {
-    content: "";
-    position: fixed;
-    width: 45vmin;
-    height: 45vmin;
-    left: 20%;
-    top: 20%;
-
-    background: rgba(150,60,255,.035);
-    border-radius: 50%;
-    filter: blur(80px);
-
-    animation: atmosphere 8s ease-in-out infinite alternate;
-}
-
-@keyframes atmosphere {
-    from {
-        transform: translate(0,0);
-    }
-
-    to {
-        transform: translate(35vw,25vh);
-    }
-}
-
 
 /* =========================================================
-   HEART CONTAINER
+   HEART
 ========================================================= */
 
-#heart {
-    position: absolute;
+#heart{
+    position:fixed;
 
-    width: min(98vw, 1000px);
-    height: min(92vh, 900px);
+    left:50%;
+    top:50%;
 
-    left: 50%;
-    top: 50%;
+    transform:translate(-50%,-50%);
 
-    transform:
-        translate(-50%, -50%)
-        scale(.98);
+    width:min(96vw,900px);
+    height:min(94vh,900px);
 
-    display: flex;
-    flex-direction: column;
-
-    align-items: center;
-    justify-content: center;
-
-    pointer-events: none;
+    pointer-events:none;
 }
 
 
-/* =========================================================
-   ROWS
-========================================================= */
+/* Each NIKKAH */
 
-.row {
+.word{
+    position:absolute;
 
-    height: clamp(10px, 1.45vh, 15px);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    white-space: nowrap;
-
-    opacity: 0;
-
-    transform:
-        translateY(100px)
-        scale(.55);
-
-    animation:
-        buildHeart
-        3.4s
-        cubic-bezier(.16,1,.3,1)
-        forwards;
-
-    animation-delay: var(--delay);
-}
-
-
-/* =========================================================
-   EVERY NIKKAH
-========================================================= */
-
-.word {
-
-    display: inline-block;
-
-    margin:
-        0 clamp(1px, .15vw, 2px);
-
-    color: #b95cff;
+    color:#b75cff;
 
     font-family:
         Georgia,
         "Times New Roman",
         serif;
 
-    font-size:
-        clamp(6px, .85vw, 10px);
+    font-weight:bold;
 
-    font-weight: bold;
+    white-space:nowrap;
 
-    letter-spacing: .025em;
+    line-height:1;
 
     text-shadow:
-        0 0 3px rgba(138,43,226,.9),
-        0 0 8px rgba(138,43,226,.75),
-        0 0 16px rgba(138,43,226,.45);
+        0 0 3px rgba(138,43,226,.95),
+        0 0 7px rgba(138,43,226,.8),
+        0 0 14px rgba(138,43,226,.55);
 
-    opacity:
-        calc(.55 + var(--brightness));
+    opacity:0;
 
     animation:
-        wordGlow
-        3.5s
-        ease-in-out
-        infinite alternate;
+        appear 2.2s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
+
+    animation-delay:var(--delay);
 }
 
 
-/* Different purple tones */
+/* subtle color variation */
 
-.word:nth-child(4n) {
-    color: #c875ff;
+.word:nth-child(5n){
+    color:#ca7cff;
 }
 
-.word:nth-child(7n) {
-    color: #9f3fff;
+.word:nth-child(9n){
+    color:#963cff;
 }
 
-.word:nth-child(11n) {
-    color: #dc9cff;
+.word:nth-child(13n){
+    color:#dfabff;
 }
 
 
-/* =========================================================
-   HEART FORMATION
-========================================================= */
+@keyframes appear{
 
-@keyframes buildHeart {
-
-    0% {
-        opacity: 0;
+    0%{
+        opacity:0;
 
         transform:
-            translateY(100px)
-            scale(.45);
+            translate(
+                var(--startX),
+                var(--startY)
+            )
+            scale(.35);
     }
 
-    35% {
-        opacity: .25;
+    60%{
+        opacity:.65;
     }
 
-    75% {
-        opacity: .85;
-    }
-
-    100% {
-        opacity: 1;
+    100%{
+        opacity:var(--finalOpacity);
 
         transform:
-            translateY(0)
+            translate(0,0)
             scale(1);
     }
 }
 
 
-@keyframes wordGlow {
-
-    from {
-        filter: brightness(.75);
-    }
-
-    to {
-        filter: brightness(1.2);
-    }
-}
-
-
 /* =========================================================
-   CENTER NIKKAH
+   CENTER REVEAL
 ========================================================= */
 
-#center {
+#reveal{
+    position:fixed;
 
-    position: fixed;
-
-    left: 50%;
-    top: 50%;
+    left:50%;
+    top:50%;
 
     transform:
-        translate(-50%, -50%)
-        scale(.2);
+        translate(-50%,-50%)
+        scale(.25);
 
-    opacity: 0;
+    opacity:0;
 
-    z-index: 50;
+    text-align:center;
 
-    pointer-events: none;
+    z-index:20;
+
+    pointer-events:none;
 
     animation:
-        revealCenter
-        2.5s
+        reveal
+        2.4s
         cubic-bezier(.16,1,.3,1)
-        6.3s
+        7.4s
         forwards;
 }
 
+#mainWord{
 
-#centerWord {
-
-    color: #e4b9ff;
+    color:#e2b5ff;
 
     font-size:
-        clamp(40px, 11vw, 100px);
+        clamp(42px,11vw,105px);
 
-    font-weight: bold;
+    font-weight:bold;
 
-    letter-spacing: .09em;
-
-    text-align: center;
+    letter-spacing:.08em;
 
     text-shadow:
 
         0 0 5px #8a2be2,
-
         0 0 15px #8a2be2,
-
         0 0 30px #8a2be2,
-
         0 0 55px #8a2be2,
-
-        0 0 100px rgba(138,43,226,.75);
+        0 0 100px rgba(138,43,226,.8);
 
     animation:
-        centerPulse
+        pulse
         3s
         ease-in-out
         infinite;
 }
 
 
-@keyframes revealCenter {
+#subWord{
 
-    0% {
+    margin-top:10px;
 
-        opacity: 0;
+    color:#d8a5ff;
+
+    font-size:
+        clamp(11px,3vw,18px);
+
+    letter-spacing:.28em;
+
+    text-shadow:
+        0 0 8px #8a2be2,
+        0 0 20px rgba(138,43,226,.65);
+
+    opacity:0;
+
+    animation:
+        subReveal
+        1.8s
+        ease
+        8.5s
+        forwards;
+}
+
+
+@keyframes reveal{
+
+    0%{
+        opacity:0;
 
         transform:
-            translate(-50%, -50%)
-            scale(.2);
+            translate(-50%,-50%)
+            scale(.25);
     }
 
-    65% {
-
-        opacity: 1;
+    65%{
+        opacity:1;
 
         transform:
-            translate(-50%, -50%)
+            translate(-50%,-50%)
             scale(1.08);
     }
 
-    100% {
-
-        opacity: 1;
+    100%{
+        opacity:1;
 
         transform:
-            translate(-50%, -50%)
+            translate(-50%,-50%)
             scale(1);
     }
 }
 
 
-@keyframes centerPulse {
+@keyframes pulse{
 
-    0%,
-    100% {
-
-        filter:
-            brightness(.9);
-
-        text-shadow:
-
-            0 0 5px #8a2be2,
-
-            0 0 15px #8a2be2,
-
-            0 0 35px #8a2be2,
-
-            0 0 70px rgba(138,43,226,.65);
+    0%,100%{
+        filter:brightness(.9);
     }
 
-    50% {
+    50%{
+        filter:brightness(1.3);
+    }
+}
 
-        filter:
-            brightness(1.3);
 
-        text-shadow:
+@keyframes subReveal{
 
-            0 0 7px #a94fff,
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
 
-            0 0 20px #8a2be2,
-
-            0 0 45px #8a2be2,
-
-            0 0 100px rgba(138,43,226,.9);
+    to{
+        opacity:1;
+        transform:translateY(0);
     }
 }
 
 
 /* =========================================================
-   IN SHAA ALLAH
+   BOTTOM
 ========================================================= */
 
-#subtitle {
+#hint{
 
-    position: fixed;
+    position:fixed;
 
-    left: 50%;
-    top: calc(50% + clamp(48px, 8vw, 80px));
+    bottom:22px;
+    left:50%;
 
-    transform:
-        translateX(-50%)
-        translateY(15px);
+    transform:translateX(-50%);
 
-    opacity: 0;
+    color:rgba(207,159,255,.4);
 
-    z-index: 50;
+    font-size:9px;
 
-    color: rgba(225,190,255,.9);
+    letter-spacing:.32em;
 
-    font-size:
-        clamp(12px, 3vw, 19px);
+    text-transform:uppercase;
 
-    letter-spacing:
-        .28em;
+    white-space:nowrap;
 
-    white-space: nowrap;
-
-    text-shadow:
-        0 0 8px rgba(138,43,226,.8),
-        0 0 20px rgba(138,43,226,.45);
+    opacity:0;
 
     animation:
-        subtitleReveal
+        hint
         2s
         ease
-        7.5s
+        10s
         forwards;
 }
 
-
-@keyframes subtitleReveal {
-
-    from {
-
-        opacity: 0;
-
-        transform:
-            translateX(-50%)
-            translateY(15px);
-
-    }
-
-    to {
-
-        opacity: 1;
-
-        transform:
-            translateX(-50%)
-            translateY(0);
-
-    }
-}
-
-
-/* =========================================================
-   BOTTOM MESSAGE
-========================================================= */
-
-#bottom {
-
-    position: fixed;
-
-    left: 50%;
-    bottom: 25px;
-
-    transform:
-        translateX(-50%);
-
-    color:
-        rgba(201,154,255,.35);
-
-    font-size: 9px;
-
-    letter-spacing:
-        .32em;
-
-    text-transform:
-        uppercase;
-
-    white-space: nowrap;
-
-    opacity: 0;
-
-    animation:
-        bottomReveal
-        2s
-        ease
-        9s
-        forwards;
-}
-
-
-@keyframes bottomReveal {
-
-    to {
-        opacity: 1;
-    }
+@keyframes hint{
+    to{opacity:1;}
 }
 
 
@@ -483,42 +326,20 @@ body::after {
    MOBILE
 ========================================================= */
 
-@media (max-width: 600px) {
+@media(max-width:600px){
 
-    #heart {
-
-        width: 112vw;
-
-        height: 88vh;
+    #heart{
+        width:110vw;
+        height:94vh;
     }
 
-    .row {
-
-        height: 10px;
+    #mainWord{
+        font-size:clamp(38px,14vw,70px);
     }
 
-    .word {
-
-        font-size: 6px;
-
-        margin:
-            0 .8px;
-    }
-
-    #centerWord {
-
-        font-size:
-            clamp(36px, 14vw, 65px);
-    }
-
-    #subtitle {
-
-        top:
-            calc(50% + 48px);
-
-        font-size: 11px;
-
-        letter-spacing: .24em;
+    #subWord{
+        font-size:10px;
+        letter-spacing:.22em;
     }
 }
 </style>
@@ -526,33 +347,25 @@ body::after {
 
 <body>
 
-
-<!-- =====================================================
-     THE ENTIRE HEART IS MADE FROM TEXT
-====================================================== -->
+<div class="backgroundGlow"></div>
 
 <div id="heart"></div>
 
 
-<!-- =====================================================
-     FINAL REVEAL
-====================================================== -->
+<div id="reveal">
 
-<div id="center">
-
-    <div id="centerWord">
+    <div id="mainWord">
         NIKKAH
+    </div>
+
+    <div id="subWord">
+        In Shaa Allah
     </div>
 
 </div>
 
 
-<div id="subtitle">
-    In Shaa Allah
-</div>
-
-
-<div id="bottom">
+<div id="hint">
     A beautiful beginning
 </div>
 
@@ -560,7 +373,7 @@ body::after {
 <script>
 
 /* =========================================================
-   NIKKAH TEXT HEART ENGINE
+   REAL HEART TEXT ENGINE
 ========================================================= */
 
 const heart =
@@ -568,338 +381,457 @@ const heart =
 
 
 /*
-=============================================================
-THE HEART SILHOUETTE
-=============================================================
+   IMPORTANT:
 
-Each number = number of NIKKAH words on that row.
+   We are NOT drawing a heart.
 
-The first rows contain TWO separate groups.
+   We calculate thousands of positions INSIDE a tall
+   heart silhouette and put the actual word NIKKAH
+   at those positions.
 
-That empty center creates the indentation.
-
-Then the two lobes merge.
-
-Then the heart gradually becomes narrower.
-
-Finally:
-
-NIKKAH
-
-NIKKAH
-
-NIKKAH
-
-NIKKAH
-
-NIKKAH
-
-NIKKAH
-
-        NIKKAH
-
-                 NIKKAH
-
-                      NIKKAH
-
-                           NIKKAH
-
-                                NIKKAH
-
-                                     NIKKAH
-
-                                          NIKKAH
-
-                                               NIKKAH
-
-                                                    NIKKAH
-
-                                                         NIKKAH
-
-                                                              NIKKAH
-
-                                                                   NIKKAH
-
-                                                                        NIKKAH
-
-=============================================================================
+   So the text itself is the heart.
 */
 
 
-const rows = [
-
-    /* =====================================================
-       TWO LARGE ROUNDED LOBES
-    ===================================================== */
-
-    { count: 34, gap: 22 },
-    { count: 46, gap: 20 },
-    { count: 58, gap: 18 },
-    { count: 68, gap: 17 },
-    { count: 76, gap: 15 },
-    { count: 82, gap: 13 },
-
-    /* =====================================================
-       LOBES START JOINING
-    ===================================================== */
-
-    { count: 88, gap: 10 },
-    { count: 92, gap: 7 },
-    { count: 96, gap: 4 },
-
-    /* =====================================================
-       FULL HEART WIDTH
-    ===================================================== */
-
-    { count: 100, gap: 0 },
-    { count: 102, gap: 0 },
-    { count: 103, gap: 0 },
-    { count: 104, gap: 0 },
-    { count: 104, gap: 0 },
-
-    /* =====================================================
-       START NARROWING
-    ===================================================== */
-
-    { count: 103, gap: 0 },
-    { count: 101, gap: 0 },
-    { count: 98, gap: 0 },
-    { count: 95, gap: 0 },
-    { count: 92, gap: 0 },
-    { count: 88, gap: 0 },
-    { count: 84, gap: 0 },
-    { count: 80, gap: 0 },
-    { count: 76, gap: 0 },
-    { count: 72, gap: 0 },
-    { count: 68, gap: 0 },
-    { count: 64, gap: 0 },
-    { count: 60, gap: 0 },
-    { count: 56, gap: 0 },
-    { count: 52, gap: 0 },
-    { count: 48, gap: 0 },
-    { count: 44, gap: 0 },
-    { count: 40, gap: 0 },
-    { count: 36, gap: 0 },
-    { count: 32, gap: 0 },
-    { count: 28, gap: 0 },
-    { count: 24, gap: 0 },
-    { count: 20, gap: 0 },
-    { count: 17, gap: 0 },
-    { count: 14, gap: 0 },
-    { count: 11, gap: 0 },
-    { count: 8, gap: 0 },
-    { count: 6, gap: 0 },
-    { count: 4, gap: 0 },
-    { count: 3, gap: 0 },
-    { count: 2, gap: 0 },
-    { count: 1, gap: 0 }
-];
+const W = window.innerWidth;
+const H = window.innerHeight;
 
 
 /* =========================================================
-   BUILD EACH ROW
+   HEART SIZE
+
+   Tall instead of short.
 ========================================================= */
 
-rows.forEach((data, rowIndex) => {
+const heartW =
+    Math.min(W * .91, 780);
 
-    const row =
-        document.createElement("div");
+const heartH =
+    Math.min(H * .91, 820);
 
-    row.className = "row";
+const centerX =
+    heartW / 2;
 
-
-    /*
-    Slower formation.
-
-    The heart builds from top to bottom,
-    rather than appearing immediately.
-    */
-
-    row.style.setProperty(
-        "--delay",
-        `${rowIndex * 0.085}s`
-    );
-
-
-    /*
-    =========================================================
-    TWO LOBES
-    =========================================================
-    */
-
-    if (data.gap > 0) {
-
-        const total =
-            data.count;
-
-        const eachSide =
-            Math.floor(total / 2);
-
-
-        /*
-        LEFT LOBE
-        */
-
-        for (
-            let i = 0;
-            i < eachSide;
-            i++
-        ) {
-
-            row.appendChild(
-                createNikkah()
-            );
-        }
-
-
-        /*
-        CENTER VALLEY
-
-        This is real empty space.
-        No image.
-        No SVG.
-        No shape underneath.
-
-        The words themselves define the heart.
-        */
-
-        const valley =
-            document.createElement("span");
-
-        valley.style.display =
-            "inline-block";
-
-        valley.style.width =
-            `${data.gap}px`;
-
-        row.appendChild(valley);
-
-
-        /*
-        RIGHT LOBE
-        */
-
-        for (
-            let i = 0;
-            i < eachSide;
-            i++
-        ) {
-
-            row.appendChild(
-                createNikkah()
-            );
-        }
-
-    } else {
-
-        /*
-        FULL ROW
-        */
-
-        for (
-            let i = 0;
-            i < data.count;
-            i++
-        ) {
-
-            row.appendChild(
-                createNikkah()
-            );
-        }
-    }
-
-
-    heart.appendChild(row);
-});
+const centerY =
+    heartH / 2;
 
 
 /* =========================================================
-   CREATE NIKKAH WORD
+   HEART MASK
+
+   This is a controlled heart silhouette.
+
+   We use a parametric heart outline and fill the inside
+   with rows of NIKKAH words.
+
+   The formula:
+
+   x = 16 sin³(t)
+
+   y = 13 cos(t)
+       - 5 cos(2t)
+       - 2 cos(3t)
+       - cos(4t)
+
+   is only being used to determine the silhouette.
+   There is NO SVG and NO heart graphic.
 ========================================================= */
 
-function createNikkah() {
 
-    const word =
-        document.createElement("span");
+function heartPoint(t){
 
-    word.className =
-        "word";
+    const x =
+        16 *
+        Math.pow(Math.sin(t),3);
 
-    word.textContent =
-        "NIKKAH";
+    const y =
+        13 * Math.cos(t)
+        - 5 * Math.cos(2*t)
+        - 2 * Math.cos(3*t)
+        - Math.cos(4*t);
 
-
-    /*
-    Random brightness gives the huge heart
-    a subtle living texture.
-    */
-
-    word.style.setProperty(
-        "--brightness",
-        (Math.random() * .4).toFixed(2)
-    );
-
-
-    return word;
+    return {x,y};
 }
 
 
 /* =========================================================
-   RESTART
+   CREATE A DENSE HEART MASK
+
+   We sample the mathematical heart into a 2D occupancy
+   field, then put NIKKAH text inside the actual filled area.
+
+   The final shape is intentionally stretched vertically.
+========================================================= */
+
+
+const sampleSize = 520;
+
+const mask =
+    new Uint8Array(
+        sampleSize * sampleSize
+    );
+
+
+/*
+   Draw/fill the silhouette mathematically into a mask.
+
+   For each pixel we check whether it lies inside the
+   heart boundary by using the normalized heart equation.
+*/
+
+
+function insideHeart(nx,ny){
+
+    /*
+       Convert normalized screen position
+       into the classic heart coordinate system.
+    */
+
+    const x = nx * 16;
+    const y = -ny * 16;
+
+
+    /*
+       Classic implicit heart:
+
+       (x²+y²-1)³ - x²y³ <= 0
+    */
+
+    const a =
+        x*x + y*y - 1;
+
+    const value =
+        a*a*a
+        - x*x*y*y*y;
+
+    return value <= 0;
+}
+
+
+/*
+   Fill mask.
+*/
+
+for(let py=0; py<sampleSize; py++){
+
+    const ny =
+        (py/(sampleSize-1))*2 - 1;
+
+    for(let px=0; px<sampleSize; px++){
+
+        const nx =
+            (px/(sampleSize-1))*2 - 1;
+
+        if(
+            insideHeart(nx,ny)
+        ){
+
+            mask[
+                py*sampleSize+px
+            ] = 1;
+        }
+    }
+}
+
+
+/* =========================================================
+   FIND WHETHER A POSITION IS INSIDE THE HEART
+========================================================= */
+
+function isInside(x,y){
+
+    const px =
+        Math.floor(
+            (x+1)/2*(sampleSize-1)
+        );
+
+    const py =
+        Math.floor(
+            (y+1)/2*(sampleSize-1)
+        );
+
+    if(
+        px<0 ||
+        py<0 ||
+        px>=sampleSize ||
+        py>=sampleSize
+    ){
+        return false;
+    }
+
+    return (
+        mask[
+            py*sampleSize+px
+        ] === 1
+    );
+}
+
+
+/* =========================================================
+   TEXT SPACING
+========================================================= */
+
+const fontSize =
+    Math.max(
+        6,
+        Math.min(
+            10,
+            heartW*.012
+        )
+    );
+
+
+/*
+   Horizontal distance between words.
+
+   Very dense.
+*/
+
+const spacingX =
+    fontSize * .88;
+
+
+/*
+   Vertical distance.
+
+   Smaller than the word height so the heart becomes
+   a solid wall of NIKKAH.
+*/
+
+const spacingY =
+    fontSize * .82;
+
+
+/* =========================================================
+   CREATE THE ACTUAL TEXT HEART
+========================================================= */
+
+let count = 0;
+
+const totalRows =
+    Math.floor(
+        heartH / spacingY
+    );
+
+
+for(
+    let row=0;
+    row<totalRows;
+    row++
+){
+
+    /*
+       normalized Y.
+
+       Top = -1
+       Bottom = +1
+    */
+
+    const ny =
+        -1 +
+        (row/(totalRows-1))*2;
+
+
+    /*
+       Convert normalized position to actual screen
+       coordinates inside #heart.
+    */
+
+    const y =
+        centerY +
+        ny *
+        heartH *
+        .48;
+
+
+    /*
+       Horizontal scan.
+
+       The heart is checked point-by-point.
+
+       This produces the actual rounded lobes,
+       indentation and long point.
+    */
+
+    for(
+        let x=-1;
+        x<=1;
+        x += spacingX/heartW
+    ){
+
+        if(
+            !isInside(x,ny)
+        ){
+            continue;
+        }
+
+
+        /*
+           Don't overcrowd the exact outer boundary.
+
+           But keep enough words there so the contour
+           remains clearly visible.
+        */
+
+        const edgeCheck =
+            isInside(
+                x + .018,
+                ny
+            ) &&
+            isInside(
+                x - .018,
+                ny
+            );
+
+
+        /*
+           Actual position.
+        */
+
+        const px =
+            centerX +
+            x *
+            heartW *
+            .48;
+
+
+        const py =
+            y;
+
+
+        /*
+           Every word is a real HTML text element.
+        */
+
+        const word =
+            document.createElement("span");
+
+        word.className =
+            "word";
+
+        word.textContent =
+            "NIKKAH";
+
+
+        /*
+           Position.
+        */
+
+        word.style.left =
+            `${px}px`;
+
+        word.style.top =
+            `${py}px`;
+
+
+        /*
+           Center the word around its coordinate.
+        */
+
+        word.style.transform =
+            "translate(-50%,-50%)";
+
+
+        /*
+           Slight random opacity.
+        */
+
+        const opacity =
+            edgeCheck
+                ? .75 + Math.random()*.2
+                : .55 + Math.random()*.4;
+
+        word.style.setProperty(
+            "--finalOpacity",
+            opacity
+        );
+
+
+        /*
+           Different starting directions.
+
+           This makes the words appear from scattered
+           positions and settle into the heart.
+        */
+
+        const startX =
+            (Math.random()-.5) *
+            W *
+            .8;
+
+        const startY =
+            (Math.random()-.5) *
+            H *
+            .8;
+
+
+        word.style.setProperty(
+            "--startX",
+            `${startX}px`
+        );
+
+        word.style.setProperty(
+            "--startY",
+            `${startY}px`
+        );
+
+
+        /*
+           Progressive formation.
+
+           Top begins first, then the rest follows.
+        */
+
+        word.style.setProperty(
+            "--delay",
+            `${row*.045 + Math.random()*.25}s`
+        );
+
+
+        /*
+           Slight size variation.
+        */
+
+        const size =
+            fontSize *
+            (.78 + Math.random()*.28);
+
+        word.style.fontSize =
+            `${size}px`;
+
+
+        heart.appendChild(word);
+
+        count++;
+    }
+}
+
+
+/* =========================================================
+   CLICK = REBUILD
 ========================================================= */
 
 document.body.addEventListener(
     "click",
     () => {
 
-        const allRows =
-            document.querySelectorAll(".row");
+        const words =
+            document.querySelectorAll(".word");
 
+        words.forEach(
+            (word,index)=>{
 
-        allRows.forEach(
-            (row, index) => {
-
-                row.style.animation =
+                word.style.animation =
                     "none";
 
-                void row.offsetWidth;
+                void word.offsetWidth;
 
-                row.style.animation =
-                    `buildHeart
-                     3.4s
-                     cubic-bezier(.16,1,.3,1)
-                     ${index * .085}s
-                     forwards`;
+                word.style.animation =
+                    `appear 2.2s cubic-bezier(.16,1,.3,1)
+                     ${index*.003}s forwards`;
             }
         );
 
-
-        /*
-        Reset final reveal.
-        */
-
-        const center =
-            document.getElementById("center");
-
-        const subtitle =
-            document.getElementById("subtitle");
-
-
-        center.style.animation =
-            "none";
-
-        subtitle.style.animation =
-            "none";
-
-
-        void center.offsetWidth;
-
-
-        center.style.animation =
-            "revealCenter 2.5s cubic-bezier(.16,1,.3,1) 6.3s forwards";
-
-        subtitle.style.animation =
-            "subtitleReveal 2s ease 7.5s forwards";
     }
 );
 
