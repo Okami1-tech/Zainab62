@@ -2,11 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0,
-               maximum-scale=1.0, user-scalable=no">
-
-<title>NIKKAH — In Shaa Allah</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Sarauniya 💜</title>
 
 <style>
 *{
@@ -19,327 +16,366 @@ html,body{
     width:100%;
     height:100%;
     overflow:hidden;
-    background:#020003;
+    background:#030005;
+    font-family:Georgia, "Times New Roman", serif;
+    color:white;
 }
 
 body{
     position:relative;
-    font-family:Georgia,"Times New Roman",serif;
 }
 
-/* =========================================================
-   PURPLE ATMOSPHERE
-========================================================= */
+/* =========================
+   STAR FIELD
+========================= */
 
-.backgroundGlow{
-    position:fixed;
-    width:90vmin;
-    height:90vmin;
-    left:50%;
-    top:48%;
-    transform:translate(-50%,-50%);
-    border-radius:50%;
-
+#space{
+    position:absolute;
+    inset:0;
+    overflow:hidden;
     background:
-        radial-gradient(
-            circle,
-            rgba(138,43,226,.15),
-            rgba(91,20,150,.06) 38%,
-            transparent 72%
-        );
-
-    filter:blur(35px);
-    pointer-events:none;
+      radial-gradient(circle at center,#160020 0%,#07000b 45%,#020003 100%);
 }
 
-/* =========================================================
-   HEART
-========================================================= */
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:#fff;
+    border-radius:50%;
+    opacity:.7;
+    box-shadow:0 0 7px rgba(255,255,255,.8);
+}
 
-#heart{
-    position:fixed;
+/* Cinematic forward stars */
+.star.fly{
+    animation:flyIn var(--speed) cubic-bezier(.2,.7,.2,1) forwards;
+}
 
+@keyframes flyIn{
+    0%{
+        transform:translate3d(0,0,0) scale(.2);
+        opacity:0;
+    }
+
+    15%{
+        opacity:1;
+    }
+
+    100%{
+        transform:
+          translate3d(
+            calc((var(--x) - 50) * 9vw),
+            calc((var(--y) - 50) * 9vh),
+            800px
+          )
+          scale(7);
+        opacity:0;
+    }
+}
+
+/* =========================
+   ONE STAR
+========================= */
+
+#singleStar{
+    position:absolute;
     left:50%;
     top:50%;
-
-    transform:translate(-50%,-50%);
-
-    width:min(96vw,900px);
-    height:min(94vh,900px);
-
-    pointer-events:none;
-}
-
-
-/* Each NIKKAH */
-
-.word{
-    position:absolute;
-
-    color:#b75cff;
-
-    font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-    font-weight:bold;
-
-    white-space:nowrap;
-
-    line-height:1;
-
-    text-shadow:
-        0 0 3px rgba(138,43,226,.95),
-        0 0 7px rgba(138,43,226,.8),
-        0 0 14px rgba(138,43,226,.55);
-
+    transform:translate(-50%,-50%) scale(0);
+    width:18px;
+    height:18px;
     opacity:0;
-
-    animation:
-        appear 2.2s
-        cubic-bezier(.16,1,.3,1)
-        forwards;
-
-    animation-delay:var(--delay);
+    z-index:5;
 }
 
-
-/* subtle color variation */
-
-.word:nth-child(5n){
-    color:#ca7cff;
+#singleStar.show{
+    animation:starAppear 2.5s ease forwards;
 }
 
-.word:nth-child(9n){
-    color:#963cff;
+.starCore{
+    width:100%;
+    height:100%;
+    transform:rotate(45deg);
+    background:white;
+    box-shadow:
+      0 0 10px white,
+      0 0 30px #c77dff,
+      0 0 70px #8a2be2,
+      0 0 120px #8a2be2;
+    clip-path:polygon(
+      50% 0%,
+      61% 36%,
+      100% 50%,
+      61% 64%,
+      50% 100%,
+      39% 64%,
+      0% 50%,
+      39% 36%
+    );
 }
 
-.word:nth-child(13n){
-    color:#dfabff;
-}
-
-
-@keyframes appear{
-
+@keyframes starAppear{
     0%{
         opacity:0;
+        transform:translate(-50%,-50%) scale(0);
+    }
+    35%{
+        opacity:1;
+    }
+    70%{
+        transform:translate(-50%,-50%) scale(1.5);
+    }
+    100%{
+        opacity:1;
+        transform:translate(-50%,-50%) scale(1);
+    }
+}
 
-        transform:
-            translate(
-                var(--startX),
-                var(--startY)
-            )
-            scale(.35);
+/* =========================
+   NIKKAH HEART
+========================= */
+
+#heartScene{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    transform:scale(.7);
+    pointer-events:none;
+    z-index:10;
+}
+
+#heartScene.show{
+    animation:heartEntrance 2s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+@keyframes heartEntrance{
+    0%{
+        opacity:0;
+        transform:scale(.45);
     }
 
     60%{
-        opacity:.65;
+        opacity:1;
+        transform:scale(1.06);
     }
 
     100%{
-        opacity:var(--finalOpacity);
-
-        transform:
-            translate(0,0)
-            scale(1);
+        opacity:1;
+        transform:scale(1);
     }
 }
 
-
-/* =========================================================
-   CENTER REVEAL
-========================================================= */
-
-#reveal{
-    position:fixed;
-
-    left:50%;
-    top:50%;
-
-    transform:
-        translate(-50%,-50%)
-        scale(.25);
-
-    opacity:0;
-
-    text-align:center;
-
-    z-index:20;
-
-    pointer-events:none;
-
-    animation:
-        reveal
-        2.4s
-        cubic-bezier(.16,1,.3,1)
-        7.4s
-        forwards;
+#heart{
+    position:relative;
+    width:min(88vw,520px);
+    height:min(78vw,470px);
+    filter:
+      drop-shadow(0 0 8px #8a2be2)
+      drop-shadow(0 0 28px rgba(138,43,226,.65));
 }
 
-#mainWord{
+/*
+  Two circles + rotated square create the heart silhouette.
+  The Nikkah words are positioned using the mathematical
+  heart equation below.
+*/
 
-    color:#e2b5ff;
-
-    font-size:
-        clamp(42px,11vw,105px);
-
+.nikkah{
+    position:absolute;
+    color:#dca8ff;
+    font-size:clamp(8px,1.9vw,13px);
     font-weight:bold;
-
-    letter-spacing:.08em;
-
+    white-space:nowrap;
     text-shadow:
-
-        0 0 5px #8a2be2,
-        0 0 15px #8a2be2,
-        0 0 30px #8a2be2,
-        0 0 55px #8a2be2,
-        0 0 100px rgba(138,43,226,.8);
-
-    animation:
-        pulse
-        3s
-        ease-in-out
-        infinite;
-}
-
-
-#subWord{
-
-    margin-top:10px;
-
-    color:#d8a5ff;
-
-    font-size:
-        clamp(11px,3vw,18px);
-
-    letter-spacing:.28em;
-
-    text-shadow:
-        0 0 8px #8a2be2,
-        0 0 20px rgba(138,43,226,.65);
-
+      0 0 5px #a855f7,
+      0 0 12px rgba(168,85,247,.8);
+    transform:translate(-50%,-50%);
     opacity:0;
-
-    animation:
-        subReveal
-        1.8s
-        ease
-        8.5s
-        forwards;
+    animation:nikkahReveal .8s ease forwards;
 }
 
-
-@keyframes reveal{
-
-    0%{
-        opacity:0;
-
-        transform:
-            translate(-50%,-50%)
-            scale(.25);
-    }
-
-    65%{
-        opacity:1;
-
-        transform:
-            translate(-50%,-50%)
-            scale(1.08);
-    }
-
-    100%{
-        opacity:1;
-
-        transform:
-            translate(-50%,-50%)
-            scale(1);
-    }
-}
-
-
-@keyframes pulse{
-
-    0%,100%{
-        filter:brightness(.9);
-    }
-
-    50%{
-        filter:brightness(1.3);
-    }
-}
-
-
-@keyframes subReveal{
-
+@keyframes nikkahReveal{
     from{
         opacity:0;
-        transform:translateY(10px);
+        transform:translate(-50%,-50%) scale(.3);
     }
+    to{
+        opacity:.92;
+        transform:translate(-50%,-50%) scale(1);
+    }
+}
 
+.centerNikkah{
+    position:absolute;
+    left:50%;
+    top:53%;
+    transform:translate(-50%,-50%);
+    font-family:Georgia,serif;
+    font-size:clamp(32px,10vw,70px);
+    font-weight:bold;
+    color:white;
+    letter-spacing:4px;
+    text-shadow:
+      0 0 8px white,
+      0 0 25px #c084fc,
+      0 0 55px #8a2be2;
+    opacity:0;
+}
+
+.centerNikkah.show{
+    animation:centerReveal 2s ease forwards;
+}
+
+@keyframes centerReveal{
+    from{
+        opacity:0;
+        transform:translate(-50%,-50%) scale(.4);
+    }
     to{
         opacity:1;
-        transform:translateY(0);
+        transform:translate(-50%,-50%) scale(1);
     }
 }
 
+/* =========================
+   MESSAGE
+========================= */
 
-/* =========================================================
-   BOTTOM
-========================================================= */
-
-#hint{
-
-    position:fixed;
-
-    bottom:22px;
-    left:50%;
-
-    transform:translateX(-50%);
-
-    color:rgba(207,159,255,.4);
-
-    font-size:9px;
-
-    letter-spacing:.32em;
-
-    text-transform:uppercase;
-
-    white-space:nowrap;
-
+#message{
+    position:absolute;
+    inset:0;
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:30px;
     opacity:0;
-
-    animation:
-        hint
-        2s
-        ease
-        10s
-        forwards;
+    transform:scale(.75) rotate(-8deg);
+    pointer-events:none;
 }
 
-@keyframes hint{
-    to{opacity:1;}
+#message.show{
+    animation:messageEnter 2s cubic-bezier(.16,1,.3,1) forwards;
 }
 
+@keyframes messageEnter{
+    0%{
+        opacity:0;
+        transform:scale(.55) rotate(-15deg);
+    }
 
-/* =========================================================
-   MOBILE
-========================================================= */
+    60%{
+        opacity:1;
+        transform:scale(1.04) rotate(2deg);
+    }
 
+    100%{
+        opacity:1;
+        transform:scale(1) rotate(0);
+    }
+}
+
+.messageBox{
+    max-width:700px;
+}
+
+.small{
+    color:#c084fc;
+    font-size:14px;
+    letter-spacing:5px;
+    text-transform:uppercase;
+    margin-bottom:22px;
+}
+
+.mainText{
+    font-size:clamp(25px,7vw,48px);
+    line-height:1.3;
+    font-weight:bold;
+    text-shadow:
+      0 0 15px rgba(168,85,247,.7);
+}
+
+.highlight{
+    color:#d8a4ff;
+}
+
+.subText{
+    margin-top:25px;
+    font-family:Arial,sans-serif;
+    font-size:clamp(14px,4vw,18px);
+    line-height:1.8;
+    color:#d7c7df;
+}
+
+.final{
+    margin-top:28px;
+    font-size:clamp(17px,5vw,25px);
+    color:white;
+    font-weight:bold;
+}
+
+.signature{
+    margin-top:22px;
+    color:#c084fc;
+    font-size:15px;
+    letter-spacing:2px;
+}
+
+/* =========================
+   FINAL HEART
+========================= */
+
+#finalHeart{
+    display:inline-block;
+    color:#c084fc;
+    animation:pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse{
+    0%,100%{
+        transform:scale(1);
+        text-shadow:0 0 10px #8a2be2;
+    }
+    50%{
+        transform:scale(1.18);
+        text-shadow:
+          0 0 20px #a855f7,
+          0 0 40px #8a2be2;
+    }
+}
+
+/* vignette */
+#vignette{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    z-index:50;
+    background:radial-gradient(
+      circle,
+      transparent 45%,
+      rgba(0,0,0,.7) 100%
+    );
+}
+
+/* mobile adjustment */
 @media(max-width:600px){
-
     #heart{
-        width:110vw;
-        height:94vh;
+        width:94vw;
+        height:80vw;
     }
 
-    #mainWord{
-        font-size:clamp(38px,14vw,70px);
+    .nikkah{
+        font-size:7px;
     }
 
-    #subWord{
-        font-size:10px;
-        letter-spacing:.22em;
+    .small{
+        font-size:11px;
+        letter-spacing:3px;
     }
 }
 </style>
@@ -347,496 +383,423 @@ body{
 
 <body>
 
-<div class="backgroundGlow"></div>
+<div id="space"></div>
 
-<div id="heart"></div>
-
-
-<div id="reveal">
-
-    <div id="mainWord">
-        NIKKAH
-    </div>
-
-    <div id="subWord">
-        In Shaa Allah
-    </div>
-
+<div id="singleStar">
+    <div class="starCore"></div>
 </div>
 
-
-<div id="hint">
-    A beautiful beginning
+<div id="heartScene">
+    <div id="heart"></div>
+    <div class="centerNikkah">NIKKAH</div>
 </div>
 
+<div id="message">
+    <div class="messageBox">
+
+        <div class="small">For My Sarauniya</div>
+
+        <div class="mainText">
+            If Allah wills,<br>
+            one day this won't just be a
+            <span class="highlight">word.</span>
+        </div>
+
+        <div class="subText">
+            It will be the beginning of the life
+            I pray we build together.
+            <br><br>
+            Through every season, every test,
+            every prayer and every smile...
+            I want to keep choosing you.
+        </div>
+
+        <div class="final">
+            Nikkah, In Shaa Allah
+            <span id="finalHeart">💜</span>
+        </div>
+
+        <div class="signature">
+            Yours, always.
+        </div>
+
+    </div>
+</div>
+
+<div id="vignette"></div>
 
 <script>
 
-/* =========================================================
-   REAL HEART TEXT ENGINE
-========================================================= */
+/* ==========================================
+   CREATE THE STAR UNIVERSE
+========================================== */
 
-const heart =
-    document.getElementById("heart");
+const space = document.getElementById("space");
 
+const STAR_COUNT = 260;
 
-/*
-   IMPORTANT:
+for(let i = 0; i < STAR_COUNT; i++){
 
-   We are NOT drawing a heart.
+    const star = document.createElement("div");
 
-   We calculate thousands of positions INSIDE a tall
-   heart silhouette and put the actual word NIKKAH
-   at those positions.
+    star.className = "star fly";
 
-   So the text itself is the heart.
-*/
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
 
+    star.style.left = x + "%";
+    star.style.top = y + "%";
 
-const W = window.innerWidth;
-const H = window.innerHeight;
+    star.style.setProperty("--x",x);
+    star.style.setProperty("--y",y);
 
+    const speed = 1.8 + Math.random() * 2.8;
 
-/* =========================================================
-   HEART SIZE
+    star.style.setProperty("--speed",speed + "s");
 
-   Tall instead of short.
-========================================================= */
+    star.style.animationDelay =
+        (Math.random() * 2.8) + "s";
 
-const heartW =
-    Math.min(W * .91, 780);
+    const size = .7 + Math.random() * 2.1;
 
-const heartH =
-    Math.min(H * .91, 820);
+    star.style.width = size + "px";
+    star.style.height = size + "px";
 
-const centerX =
-    heartW / 2;
-
-const centerY =
-    heartH / 2;
+    space.appendChild(star);
+}
 
 
-/* =========================================================
-   HEART MASK
-
-   This is a controlled heart silhouette.
-
-   We use a parametric heart outline and fill the inside
-   with rows of NIKKAH words.
-
-   The formula:
+/* ==========================================
+   HEART MATHEMATICS
 
    x = 16 sin³(t)
 
-   y = 13 cos(t)
-       - 5 cos(2t)
-       - 2 cos(3t)
-       - cos(4t)
+   y =
+   13 cos(t)
+   - 5 cos(2t)
+   - 2 cos(3t)
+   - cos(4t)
 
-   is only being used to determine the silhouette.
-   There is NO SVG and NO heart graphic.
-========================================================= */
+   This produces an actual mathematical
+   heart rather than a rough shape.
+========================================== */
 
+function createNikkahHeart(){
 
-function heartPoint(t){
+    const heart = document.getElementById("heart");
 
-    const x =
-        16 *
-        Math.pow(Math.sin(t),3);
-
-    const y =
-        13 * Math.cos(t)
-        - 5 * Math.cos(2*t)
-        - 2 * Math.cos(3*t)
-        - Math.cos(4*t);
-
-    return {x,y};
-}
-
-
-/* =========================================================
-   CREATE A DENSE HEART MASK
-
-   We sample the mathematical heart into a 2D occupancy
-   field, then put NIKKAH text inside the actual filled area.
-
-   The final shape is intentionally stretched vertically.
-========================================================= */
-
-
-const sampleSize = 520;
-
-const mask =
-    new Uint8Array(
-        sampleSize * sampleSize
-    );
-
-
-/*
-   Draw/fill the silhouette mathematically into a mask.
-
-   For each pixel we check whether it lies inside the
-   heart boundary by using the normalized heart equation.
-*/
-
-
-function insideHeart(nx,ny){
+    const width = heart.clientWidth;
+    const height = heart.clientHeight;
 
     /*
-       Convert normalized screen position
-       into the classic heart coordinate system.
+      More words = smoother heart.
+      But we avoid thousands of DOM elements
+      to keep phones smooth.
     */
 
-    const x = nx * 16;
-    const y = -ny * 16;
+    const points = [];
 
+    const rows = 38;
+    const cols = 22;
+
+    for(let i = 0; i < rows; i++){
+
+        const t =
+            Math.PI * 2 *
+            (i / rows);
+
+        /*
+          Generate multiple points around
+          the mathematical heart perimeter.
+        */
+
+        const x =
+            16 * Math.pow(Math.sin(t),3);
+
+        const y =
+            13 * Math.cos(t)
+            - 5 * Math.cos(2*t)
+            - 2 * Math.cos(3*t)
+            - Math.cos(4*t);
+
+        points.push({x,y});
+    }
 
     /*
-       Classic implicit heart:
-
-       (x²+y²-1)³ - x²y³ <= 0
+      Fill the heart by scanning horizontal
+      layers between the two boundaries.
     */
 
-    const a =
-        x*x + y*y - 1;
+    for(let y=-17; y<=13; y+=1.15){
 
-    const value =
-        a*a*a
-        - x*x*y*y*y;
+        const intersections=[];
 
-    return value <= 0;
-}
+        for(let x=-18; x<=18; x+=.18){
 
+            const inside =
+                Math.pow(
+                    x*x +
+                    Math.pow(y - Math.sqrt(Math.abs(x)),2),
+                    1
+                );
 
-/*
-   Fill mask.
-*/
+            /*
+              Standard implicit test based on
+              the heart curve.
+            */
 
-for(let py=0; py<sampleSize; py++){
+            const f =
+                Math.pow(
+                    x*x + y*y - 1,
+                    3
+                )
+                - x*x*Math.pow(y,3);
 
-    const ny =
-        (py/(sampleSize-1))*2 - 1;
+            if(f <= 0){
+                intersections.push(x);
+            }
+        }
 
-    for(let px=0; px<sampleSize; px++){
+        if(intersections.length){
 
-        const nx =
-            (px/(sampleSize-1))*2 - 1;
+            const minX = Math.min(...intersections);
+            const maxX = Math.max(...intersections);
 
-        if(
-            insideHeart(nx,ny)
-        ){
+            for(
+                let x=minX;
+                x<=maxX;
+                x+=1.05
+            ){
 
-            mask[
-                py*sampleSize+px
-            ] = 1;
+                const spanX = x / 18;
+
+                const px =
+                    width/2 +
+                    spanX * width*.47;
+
+                /*
+                  invert vertical axis
+                */
+
+                const py =
+                    height/2 -
+                    (y/17) * height*.46;
+
+                const word =
+                    document.createElement("span");
+
+                word.className="nikkah";
+
+                word.textContent="Nikkah";
+
+                word.style.left=px+"px";
+                word.style.top=py+"px";
+
+                /*
+                  Tiny random delay creates a
+                  flowing formation.
+                */
+
+                word.style.animationDelay =
+                    (Math.random()*1.4)+"s";
+
+                heart.appendChild(word);
+            }
         }
     }
 }
 
 
-/* =========================================================
-   FIND WHETHER A POSITION IS INSIDE THE HEART
-========================================================= */
+/* ==========================================
+   FALLBACK / CLEANER HEART LAYER
 
-function isInside(x,y){
+   Creates a second precise perimeter layer
+   so the silhouette stays unmistakable.
+========================================== */
 
-    const px =
-        Math.floor(
-            (x+1)/2*(sampleSize-1)
-        );
+function createHeartOutline(){
 
-    const py =
-        Math.floor(
-            (y+1)/2*(sampleSize-1)
-        );
+    const heart =
+        document.getElementById("heart");
 
-    if(
-        px<0 ||
-        py<0 ||
-        px>=sampleSize ||
-        py>=sampleSize
-    ){
-        return false;
-    }
+    const width=heart.clientWidth;
+    const height=heart.clientHeight;
 
-    return (
-        mask[
-            py*sampleSize+px
-        ] === 1
-    );
-}
+    for(let i=0;i<120;i++){
 
+        const t =
+            (Math.PI*2*i)/120;
 
-/* =========================================================
-   TEXT SPACING
-========================================================= */
+        const x =
+            16*Math.pow(Math.sin(t),3);
 
-const fontSize =
-    Math.max(
-        6,
-        Math.min(
-            10,
-            heartW*.012
-        )
-    );
-
-
-/*
-   Horizontal distance between words.
-
-   Very dense.
-*/
-
-const spacingX =
-    fontSize * .88;
-
-
-/*
-   Vertical distance.
-
-   Smaller than the word height so the heart becomes
-   a solid wall of NIKKAH.
-*/
-
-const spacingY =
-    fontSize * .82;
-
-
-/* =========================================================
-   CREATE THE ACTUAL TEXT HEART
-========================================================= */
-
-let count = 0;
-
-const totalRows =
-    Math.floor(
-        heartH / spacingY
-    );
-
-
-for(
-    let row=0;
-    row<totalRows;
-    row++
-){
-
-    /*
-       normalized Y.
-
-       Top = -1
-       Bottom = +1
-    */
-
-    const ny =
-        -1 +
-        (row/(totalRows-1))*2;
-
-
-    /*
-       Convert normalized position to actual screen
-       coordinates inside #heart.
-    */
-
-    const y =
-        centerY +
-        ny *
-        heartH *
-        .48;
-
-
-    /*
-       Horizontal scan.
-
-       The heart is checked point-by-point.
-
-       This produces the actual rounded lobes,
-       indentation and long point.
-    */
-
-    for(
-        let x=-1;
-        x<=1;
-        x += spacingX/heartW
-    ){
-
-        if(
-            !isInside(x,ny)
-        ){
-            continue;
-        }
-
-
-        /*
-           Don't overcrowd the exact outer boundary.
-
-           But keep enough words there so the contour
-           remains clearly visible.
-        */
-
-        const edgeCheck =
-            isInside(
-                x + .018,
-                ny
-            ) &&
-            isInside(
-                x - .018,
-                ny
-            );
-
-
-        /*
-           Actual position.
-        */
-
-        const px =
-            centerX +
-            x *
-            heartW *
-            .48;
-
-
-        const py =
-            y;
-
-
-        /*
-           Every word is a real HTML text element.
-        */
+        const y =
+            13*Math.cos(t)
+            -5*Math.cos(2*t)
+            -2*Math.cos(3*t)
+            -Math.cos(4*t);
 
         const word =
             document.createElement("span");
 
-        word.className =
-            "word";
+        word.className="nikkah";
 
-        word.textContent =
-            "NIKKAH";
-
-
-        /*
-           Position.
-        */
+        word.textContent="Nikkah";
 
         word.style.left =
-            `${px}px`;
+            width/2 +
+            (x/18)*width*.48 +
+            "px";
 
         word.style.top =
-            `${py}px`;
+            height/2 -
+            (y/17)*height*.47 +
+            "px";
 
-
-        /*
-           Center the word around its coordinate.
-        */
-
-        word.style.transform =
-            "translate(-50%,-50%)";
-
-
-        /*
-           Slight random opacity.
-        */
-
-        const opacity =
-            edgeCheck
-                ? .75 + Math.random()*.2
-                : .55 + Math.random()*.4;
-
-        word.style.setProperty(
-            "--finalOpacity",
-            opacity
-        );
-
-
-        /*
-           Different starting directions.
-
-           This makes the words appear from scattered
-           positions and settle into the heart.
-        */
-
-        const startX =
-            (Math.random()-.5) *
-            W *
-            .8;
-
-        const startY =
-            (Math.random()-.5) *
-            H *
-            .8;
-
-
-        word.style.setProperty(
-            "--startX",
-            `${startX}px`
-        );
-
-        word.style.setProperty(
-            "--startY",
-            `${startY}px`
-        );
-
-
-        /*
-           Progressive formation.
-
-           Top begins first, then the rest follows.
-        */
-
-        word.style.setProperty(
-            "--delay",
-            `${row*.045 + Math.random()*.25}s`
-        );
-
-
-        /*
-           Slight size variation.
-        */
-
-        const size =
-            fontSize *
-            (.78 + Math.random()*.28);
-
-        word.style.fontSize =
-            `${size}px`;
-
+        word.style.animationDelay =
+            (i*.012)+"s";
 
         heart.appendChild(word);
-
-        count++;
     }
 }
 
 
-/* =========================================================
-   CLICK = REBUILD
-========================================================= */
+/* ==========================================
+   CINEMATIC TIMELINE
+========================================== */
 
-document.body.addEventListener(
-    "click",
-    () => {
+const singleStar =
+    document.getElementById("singleStar");
 
-        const words =
-            document.querySelectorAll(".word");
+const heartScene =
+    document.getElementById("heartScene");
 
-        words.forEach(
-            (word,index)=>{
+const centerNikkah =
+    document.querySelector(".centerNikkah");
 
-                word.style.animation =
-                    "none";
+const message =
+    document.getElementById("message");
 
-                void word.offsetWidth;
 
-                word.style.animation =
-                    `appear 2.2s cubic-bezier(.16,1,.3,1)
-                     ${index*.003}s forwards`;
-            }
-        );
+/*
+  First:
+  stars rush forward.
+*/
 
+setTimeout(()=>{
+
+    /*
+      Hide old stars.
+    */
+
+    document
+      .querySelectorAll(".star")
+      .forEach(s=>{
+          s.style.opacity="0";
+      });
+
+    singleStar.classList.add("show");
+
+},5200);
+
+
+/*
+  One star remains,
+  then becomes the Nikkah heart.
+*/
+
+setTimeout(()=>{
+
+    singleStar.style.transition =
+        "all 1.5s ease";
+
+    singleStar.style.transform =
+        "translate(-50%,-50%) scale(0)";
+
+    singleStar.style.opacity="0";
+
+    heartScene.classList.add("show");
+
+    createNikkahHeart();
+    createHeartOutline();
+
+},7800);
+
+
+/*
+  Center NIKKAH appears.
+*/
+
+setTimeout(()=>{
+
+    centerNikkah.classList.add("show");
+
+},9800);
+
+
+/*
+  Heart holds for a moment,
+  then spins away.
+*/
+
+setTimeout(()=>{
+
+    heartScene.style.transition =
+        "transform 2.2s cubic-bezier(.7,0,.2,1), opacity 1.8s ease";
+
+    heartScene.style.transform =
+        "scale(1.8) rotate(360deg)";
+
+    heartScene.style.opacity="0";
+
+},13200);
+
+
+/*
+  Final message.
+*/
+
+setTimeout(()=>{
+
+    message.classList.add("show");
+
+},14300);
+
+
+/*
+  Small final stars behind the message.
+*/
+
+setTimeout(()=>{
+
+    for(let i=0;i<45;i++){
+
+        const s =
+            document.createElement("div");
+
+        s.className="star";
+
+        s.style.left =
+            Math.random()*100+"%";
+
+        s.style.top =
+            Math.random()*100+"%";
+
+        s.style.opacity =
+            .3+Math.random()*.7;
+
+        s.style.animation =
+            "pulse 2s ease-in-out infinite";
+
+        s.style.animationDelay =
+            Math.random()*2+"s";
+
+        space.appendChild(s);
     }
-);
+
+},14500);
 
 </script>
 
 </body>
 </html>
-
