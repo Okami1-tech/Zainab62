@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NIKKAH 💜</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Nikkah — In Shaa Allah</title>
 
 <style>
 * {
@@ -17,74 +18,134 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #030005;
+    background: #020003;
 }
 
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Georgia, serif;
-}
-
-/* Background glow — NOT the heart */
-body::before {
-    content: "";
-    position: fixed;
-    width: 75vw;
-    height: 75vw;
-    max-width: 700px;
-    max-height: 700px;
-    border-radius: 50%;
-    background: rgba(138, 43, 226, 0.10);
-    filter: blur(100px);
-    pointer-events: none;
+    position: relative;
+    font-family: Georgia, "Times New Roman", serif;
 }
 
 /* =========================================================
-   THE HEART
-   ========================================================= */
+   DEEP PURPLE ATMOSPHERE
+========================================================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    width: 90vmin;
+    height: 90vmin;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(138,43,226,.14) 0%,
+            rgba(91,25,150,.07) 30%,
+            transparent 70%
+        );
+
+    filter: blur(35px);
+    pointer-events: none;
+}
+
+/* subtle moving purple light */
+
+body::after {
+    content: "";
+    position: fixed;
+    width: 45vmin;
+    height: 45vmin;
+    left: 20%;
+    top: 20%;
+
+    background: rgba(150,60,255,.035);
+    border-radius: 50%;
+    filter: blur(80px);
+
+    animation: atmosphere 8s ease-in-out infinite alternate;
+}
+
+@keyframes atmosphere {
+    from {
+        transform: translate(0,0);
+    }
+
+    to {
+        transform: translate(35vw,25vh);
+    }
+}
+
+
+/* =========================================================
+   HEART CONTAINER
+========================================================= */
 
 #heart {
-    position: relative;
-    width: min(94vw, 760px);
-    height: min(88vh, 720px);
+    position: absolute;
+
+    width: min(98vw, 1000px);
+    height: min(92vh, 900px);
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.98);
 
     display: flex;
     flex-direction: column;
+
     align-items: center;
     justify-content: center;
 
-    transform: translateY(1%);
+    pointer-events: none;
 }
 
-/*
-Every row contains actual NIKKAH words.
-The row widths below create the heart silhouette.
-*/
+
+/* =========================================================
+   ROWS
+========================================================= */
 
 .row {
-    height: 15px;
+
+    height: clamp(10px, 1.45vh, 15px);
 
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
     white-space: nowrap;
 
     opacity: 0;
-    transform: translateY(80px) scale(.7);
+
+    transform:
+        translateY(100px)
+        scale(.55);
 
     animation:
-        formHeart 1.8s cubic-bezier(.16,1,.3,1) forwards;
+        buildHeart
+        3.4s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
 
     animation-delay: var(--delay);
 }
 
+
+/* =========================================================
+   EVERY NIKKAH
+========================================================= */
+
 .word {
+
     display: inline-block;
 
-    margin: 0 2px;
+    margin:
+        0 clamp(1px, .15vw, 2px);
 
     color: #b95cff;
 
@@ -93,155 +154,325 @@ The row widths below create the heart silhouette.
         "Times New Roman",
         serif;
 
-    font-size: clamp(7px, .95vw, 11px);
+    font-size:
+        clamp(6px, .85vw, 10px);
 
     font-weight: bold;
 
-    letter-spacing: .03em;
+    letter-spacing: .025em;
 
     text-shadow:
-        0 0 3px #8a2be2,
-        0 0 7px #8a2be2,
-        0 0 14px rgba(138,43,226,.75);
+        0 0 3px rgba(138,43,226,.9),
+        0 0 8px rgba(138,43,226,.75),
+        0 0 16px rgba(138,43,226,.45);
 
-    opacity: .82;
+    opacity:
+        calc(.55 + var(--brightness));
 
-    transition:
-        transform .25s ease,
-        color .25s ease;
+    animation:
+        wordGlow
+        3.5s
+        ease-in-out
+        infinite alternate;
 }
 
-.word:nth-child(3n) {
-    color: #d18aff;
+
+/* Different purple tones */
+
+.word:nth-child(4n) {
+    color: #c875ff;
 }
 
-.word:nth-child(5n) {
-    color: #a848ff;
+.word:nth-child(7n) {
+    color: #9f3fff;
 }
 
-.word:hover {
-    transform: scale(1.3);
-    color: #ffffff;
+.word:nth-child(11n) {
+    color: #dc9cff;
 }
 
-/* Formation */
 
-@keyframes formHeart {
+/* =========================================================
+   HEART FORMATION
+========================================================= */
+
+@keyframes buildHeart {
 
     0% {
         opacity: 0;
+
         transform:
-            translateY(80px)
-            scale(.65);
+            translateY(100px)
+            scale(.45);
     }
 
-    65% {
-        opacity: 1;
+    35% {
+        opacity: .25;
+    }
+
+    75% {
+        opacity: .85;
     }
 
     100% {
         opacity: 1;
+
         transform:
             translateY(0)
             scale(1);
     }
 }
 
+
+@keyframes wordGlow {
+
+    from {
+        filter: brightness(.75);
+    }
+
+    to {
+        filter: brightness(1.2);
+    }
+}
+
+
 /* =========================================================
-   CENTER WORD
-   ========================================================= */
+   CENTER NIKKAH
+========================================================= */
 
 #center {
-    position: absolute;
+
+    position: fixed;
 
     left: 50%;
-    top: 52%;
+    top: 50%;
 
     transform:
         translate(-50%, -50%)
-        scale(.3);
+        scale(.2);
 
     opacity: 0;
 
-    z-index: 20;
+    z-index: 50;
 
     pointer-events: none;
 
     animation:
-        centerAppear 2s
+        revealCenter
+        2.5s
         cubic-bezier(.16,1,.3,1)
-        4.8s forwards;
+        6.3s
+        forwards;
 }
 
-#center span {
-    display: block;
 
-    color: #e1b6ff;
+#centerWord {
+
+    color: #e4b9ff;
 
     font-size:
-        clamp(30px, 9vw, 76px);
+        clamp(40px, 11vw, 100px);
 
     font-weight: bold;
 
-    letter-spacing: .08em;
+    letter-spacing: .09em;
+
+    text-align: center;
 
     text-shadow:
+
         0 0 5px #8a2be2,
+
         0 0 15px #8a2be2,
-        0 0 35px #8a2be2,
-        0 0 70px rgba(138,43,226,.9);
+
+        0 0 30px #8a2be2,
+
+        0 0 55px #8a2be2,
+
+        0 0 100px rgba(138,43,226,.75);
+
+    animation:
+        centerPulse
+        3s
+        ease-in-out
+        infinite;
 }
 
-@keyframes centerAppear {
+
+@keyframes revealCenter {
 
     0% {
+
         opacity: 0;
+
         transform:
             translate(-50%, -50%)
-            scale(.3);
+            scale(.2);
     }
 
-    70% {
+    65% {
+
         opacity: 1;
+
+        transform:
+            translate(-50%, -50%)
+            scale(1.08);
     }
 
     100% {
+
         opacity: 1;
+
         transform:
             translate(-50%, -50%)
             scale(1);
     }
 }
 
-/* =========================================================
-   FINAL MESSAGE
-   ========================================================= */
 
-#message {
+@keyframes centerPulse {
+
+    0%,
+    100% {
+
+        filter:
+            brightness(.9);
+
+        text-shadow:
+
+            0 0 5px #8a2be2,
+
+            0 0 15px #8a2be2,
+
+            0 0 35px #8a2be2,
+
+            0 0 70px rgba(138,43,226,.65);
+    }
+
+    50% {
+
+        filter:
+            brightness(1.3);
+
+        text-shadow:
+
+            0 0 7px #a94fff,
+
+            0 0 20px #8a2be2,
+
+            0 0 45px #8a2be2,
+
+            0 0 100px rgba(138,43,226,.9);
+    }
+}
+
+
+/* =========================================================
+   IN SHAA ALLAH
+========================================================= */
+
+#subtitle {
+
+    position: fixed;
+
+    left: 50%;
+    top: calc(50% + clamp(48px, 8vw, 80px));
+
+    transform:
+        translateX(-50%)
+        translateY(15px);
+
+    opacity: 0;
+
+    z-index: 50;
+
+    color: rgba(225,190,255,.9);
+
+    font-size:
+        clamp(12px, 3vw, 19px);
+
+    letter-spacing:
+        .28em;
+
+    white-space: nowrap;
+
+    text-shadow:
+        0 0 8px rgba(138,43,226,.8),
+        0 0 20px rgba(138,43,226,.45);
+
+    animation:
+        subtitleReveal
+        2s
+        ease
+        7.5s
+        forwards;
+}
+
+
+@keyframes subtitleReveal {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateX(-50%)
+            translateY(15px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            translateY(0);
+
+    }
+}
+
+
+/* =========================================================
+   BOTTOM MESSAGE
+========================================================= */
+
+#bottom {
+
     position: fixed;
 
     left: 50%;
     bottom: 25px;
 
-    transform: translateX(-50%);
+    transform:
+        translateX(-50%);
 
-    color: rgba(213,170,255,.65);
+    color:
+        rgba(201,154,255,.35);
 
-    font-size: 10px;
+    font-size: 9px;
 
-    letter-spacing: .35em;
+    letter-spacing:
+        .32em;
 
-    text-transform: uppercase;
+    text-transform:
+        uppercase;
 
     white-space: nowrap;
 
     opacity: 0;
 
     animation:
-        messageIn 2s ease 6s forwards;
+        bottomReveal
+        2s
+        ease
+        9s
+        forwards;
 }
 
-@keyframes messageIn {
+
+@keyframes bottomReveal {
+
     to {
         opacity: 1;
     }
@@ -250,281 +481,430 @@ The row widths below create the heart silhouette.
 
 /* =========================================================
    MOBILE
-   ========================================================= */
+========================================================= */
 
 @media (max-width: 600px) {
 
     #heart {
-        width: 100vw;
-        height: 76vh;
+
+        width: 112vw;
+
+        height: 88vh;
     }
 
     .row {
-        height: 11px;
+
+        height: 10px;
     }
 
     .word {
-        margin: 0 1.2px;
-        font-size: 6.5px;
-        letter-spacing: 0;
+
+        font-size: 6px;
+
+        margin:
+            0 .8px;
     }
 
-    #center {
-        top: 51%;
+    #centerWord {
+
+        font-size:
+            clamp(36px, 14vw, 65px);
+    }
+
+    #subtitle {
+
+        top:
+            calc(50% + 48px);
+
+        font-size: 11px;
+
+        letter-spacing: .24em;
     }
 }
-
 </style>
 </head>
 
 <body>
 
+
+<!-- =====================================================
+     THE ENTIRE HEART IS MADE FROM TEXT
+====================================================== -->
+
 <div id="heart"></div>
 
+
+<!-- =====================================================
+     FINAL REVEAL
+====================================================== -->
+
 <div id="center">
-    <span>NIKKAH</span>
+
+    <div id="centerWord">
+        NIKKAH
+    </div>
+
 </div>
 
-<div id="message">
+
+<div id="subtitle">
     In Shaa Allah
+</div>
+
+
+<div id="bottom">
+    A beautiful beginning
 </div>
 
 
 <script>
 
-/*
-==============================================================
-NIKKAH TEXT HEART
-==============================================================
+/* =========================================================
+   NIKKAH TEXT HEART ENGINE
+========================================================= */
 
-The heart is constructed ROW BY ROW.
-
-Each row contains actual text:
-
-NIKKAH NIKKAH NIKKAH NIKKAH ...
-
-The widths are deliberately controlled to create:
-
-             NIKKAH       NIKKAH
-          NIKKAH NIKKAH NIKKAH NIKKAH
-       NIKKAH NIKKAH NIKKAH NIKKAH NIKKAH
-      NIKKAH NIKKAH NIKKAH NIKKAH NIKKAH
-       NIKKAH NIKKAH NIKKAH NIKKAH NIKKAH
-         NIKKAH NIKKAH NIKKAH NIKKAH
-            NIKKAH NIKKAH NIKKAH
-                NIKKAH
-                  NIKKAH
-
-==============================================================
-*/
-
-
-const heart = document.getElementById("heart");
+const heart =
+    document.getElementById("heart");
 
 
 /*
-Each number represents how many NIKKAH words
-should appear on that row.
+=============================================================
+THE HEART SILHOUETTE
+=============================================================
 
-The important part is the SHAPE.
+Each number = number of NIKKAH words on that row.
 
-The first rows intentionally have a gap in the middle.
-That creates the deep heart indentation.
+The first rows contain TWO separate groups.
+
+That empty center creates the indentation.
+
+Then the two lobes merge.
+
+Then the heart gradually becomes narrower.
+
+Finally:
+
+NIKKAH
+
+NIKKAH
+
+NIKKAH
+
+NIKKAH
+
+NIKKAH
+
+NIKKAH
+
+        NIKKAH
+
+                 NIKKAH
+
+                      NIKKAH
+
+                           NIKKAH
+
+                                NIKKAH
+
+                                     NIKKAH
+
+                                          NIKKAH
+
+                                               NIKKAH
+
+                                                    NIKKAH
+
+                                                         NIKKAH
+
+                                                              NIKKAH
+
+                                                                   NIKKAH
+
+                                                                        NIKKAH
+
+=============================================================================
 */
+
 
 const rows = [
 
-    /* TOP INDENTATION + TWO LOBES */
+    /* =====================================================
+       TWO LARGE ROUNDED LOBES
+    ===================================================== */
 
-    { count: 18, gap: true },
-    { count: 28, gap: true },
-    { count: 40, gap: true },
-    { count: 48, gap: true },
+    { count: 34, gap: 22 },
+    { count: 46, gap: 20 },
+    { count: 58, gap: 18 },
+    { count: 68, gap: 17 },
+    { count: 76, gap: 15 },
+    { count: 82, gap: 13 },
 
-    { count: 54, gap: true },
-    { count: 58, gap: true },
+    /* =====================================================
+       LOBES START JOINING
+    ===================================================== */
 
-    /* LOBES JOIN */
+    { count: 88, gap: 10 },
+    { count: 92, gap: 7 },
+    { count: 96, gap: 4 },
 
-    { count: 64, gap: false },
-    { count: 68, gap: false },
-    { count: 72, gap: false },
+    /* =====================================================
+       FULL HEART WIDTH
+    ===================================================== */
 
-    { count: 74, gap: false },
-    { count: 76, gap: false },
+    { count: 100, gap: 0 },
+    { count: 102, gap: 0 },
+    { count: 103, gap: 0 },
+    { count: 104, gap: 0 },
+    { count: 104, gap: 0 },
 
-    /* WIDEST PART */
+    /* =====================================================
+       START NARROWING
+    ===================================================== */
 
-    { count: 78, gap: false },
-    { count: 78, gap: false },
-    { count: 77, gap: false },
-    { count: 75, gap: false },
-
-    /* START NARROWING */
-
-    { count: 72, gap: false },
-    { count: 69, gap: false },
-    { count: 66, gap: false },
-    { count: 62, gap: false },
-    { count: 58, gap: false },
-    { count: 54, gap: false },
-    { count: 50, gap: false },
-    { count: 46, gap: false },
-    { count: 42, gap: false },
-    { count: 38, gap: false },
-    { count: 34, gap: false },
-    { count: 30, gap: false },
-    { count: 26, gap: false },
-    { count: 22, gap: false },
-    { count: 18, gap: false },
-    { count: 14, gap: false },
-    { count: 10, gap: false },
-    { count: 7, gap: false },
-    { count: 4, gap: false },
-    { count: 2, gap: false },
-    { count: 1, gap: false }
+    { count: 103, gap: 0 },
+    { count: 101, gap: 0 },
+    { count: 98, gap: 0 },
+    { count: 95, gap: 0 },
+    { count: 92, gap: 0 },
+    { count: 88, gap: 0 },
+    { count: 84, gap: 0 },
+    { count: 80, gap: 0 },
+    { count: 76, gap: 0 },
+    { count: 72, gap: 0 },
+    { count: 68, gap: 0 },
+    { count: 64, gap: 0 },
+    { count: 60, gap: 0 },
+    { count: 56, gap: 0 },
+    { count: 52, gap: 0 },
+    { count: 48, gap: 0 },
+    { count: 44, gap: 0 },
+    { count: 40, gap: 0 },
+    { count: 36, gap: 0 },
+    { count: 32, gap: 0 },
+    { count: 28, gap: 0 },
+    { count: 24, gap: 0 },
+    { count: 20, gap: 0 },
+    { count: 17, gap: 0 },
+    { count: 14, gap: 0 },
+    { count: 11, gap: 0 },
+    { count: 8, gap: 0 },
+    { count: 6, gap: 0 },
+    { count: 4, gap: 0 },
+    { count: 3, gap: 0 },
+    { count: 2, gap: 0 },
+    { count: 1, gap: 0 }
 ];
 
 
-/*
-Create one row.
-*/
+/* =========================================================
+   BUILD EACH ROW
+========================================================= */
 
 rows.forEach((data, rowIndex) => {
 
-    const row = document.createElement("div");
+    const row =
+        document.createElement("div");
 
     row.className = "row";
 
+
     /*
-    Rows appear progressively rather than all at once.
+    Slower formation.
+
+    The heart builds from top to bottom,
+    rather than appearing immediately.
     */
 
     row.style.setProperty(
         "--delay",
-        `${rowIndex * 0.055}s`
+        `${rowIndex * 0.085}s`
     );
 
 
     /*
-    ==========================================================
-    TOP HEART INDENTATION
-    ==========================================================
-
-    Instead of putting a heart image behind the text,
-    we simply don't put words in the middle of the first
-    rows.
-
-    That empty space becomes the actual heart valley.
+    =========================================================
+    TWO LOBES
+    =========================================================
     */
 
-    if (data.gap) {
+    if (data.gap > 0) {
 
-        const half =
-            Math.floor(data.count / 2);
+        const total =
+            data.count;
+
+        const eachSide =
+            Math.floor(total / 2);
+
 
         /*
-        Left lobe
+        LEFT LOBE
         */
 
-        for (let i = 0; i < half; i++) {
+        for (
+            let i = 0;
+            i < eachSide;
+            i++
+        ) {
 
-            createWord(row);
+            row.appendChild(
+                createNikkah()
+            );
         }
 
 
         /*
-        The middle is intentionally EMPTY.
+        CENTER VALLEY
 
-        The width of this empty area decreases as we go down,
-        causing the two lobes to curve toward each other.
+        This is real empty space.
+        No image.
+        No SVG.
+        No shape underneath.
+
+        The words themselves define the heart.
         */
 
-        const spacer =
+        const valley =
             document.createElement("span");
 
-        spacer.style.width =
-            `${Math.max(
-                15,
-                75 - rowIndex * 8
-            )}px`;
+        valley.style.display =
+            "inline-block";
 
-        row.appendChild(spacer);
+        valley.style.width =
+            `${data.gap}px`;
+
+        row.appendChild(valley);
 
 
         /*
-        Right lobe
+        RIGHT LOBE
         */
 
-        for (let i = 0; i < half; i++) {
+        for (
+            let i = 0;
+            i < eachSide;
+            i++
+        ) {
 
-            createWord(row);
+            row.appendChild(
+                createNikkah()
+            );
         }
 
     } else {
 
         /*
-        Normal full-width rows.
+        FULL ROW
         */
 
-        for (let i = 0; i < data.count; i++) {
+        for (
+            let i = 0;
+            i < data.count;
+            i++
+        ) {
 
-            createWord(row);
+            row.appendChild(
+                createNikkah()
+            );
         }
     }
+
 
     heart.appendChild(row);
 });
 
 
-/*
-==============================================================
-CREATE NIKKAH
-==============================================================
-*/
+/* =========================================================
+   CREATE NIKKAH WORD
+========================================================= */
 
-function createWord(row) {
+function createNikkah() {
 
     const word =
         document.createElement("span");
 
-    word.className = "word";
+    word.className =
+        "word";
 
-    word.textContent = "NIKKAH";
+    word.textContent =
+        "NIKKAH";
 
-    row.appendChild(word);
+
+    /*
+    Random brightness gives the huge heart
+    a subtle living texture.
+    */
+
+    word.style.setProperty(
+        "--brightness",
+        (Math.random() * .4).toFixed(2)
+    );
+
+
+    return word;
 }
 
 
-/*
-==============================================================
-RESTART ON TAP
-==============================================================
-*/
+/* =========================================================
+   RESTART
+========================================================= */
 
-document.body.addEventListener("click", () => {
+document.body.addEventListener(
+    "click",
+    () => {
 
-    const allRows =
-        document.querySelectorAll(".row");
+        const allRows =
+            document.querySelectorAll(".row");
 
-    allRows.forEach((row, i) => {
 
-        row.style.animation = "none";
+        allRows.forEach(
+            (row, index) => {
+
+                row.style.animation =
+                    "none";
+
+                void row.offsetWidth;
+
+                row.style.animation =
+                    `buildHeart
+                     3.4s
+                     cubic-bezier(.16,1,.3,1)
+                     ${index * .085}s
+                     forwards`;
+            }
+        );
+
 
         /*
-        Force browser reflow.
+        Reset final reveal.
         */
 
-        void row.offsetWidth;
+        const center =
+            document.getElementById("center");
 
-        row.style.animation =
-            `formHeart 1.8s cubic-bezier(.16,1,.3,1)
-             ${i * 0.055}s forwards`;
-    });
+        const subtitle =
+            document.getElementById("subtitle");
 
-});
+
+        center.style.animation =
+            "none";
+
+        subtitle.style.animation =
+            "none";
+
+
+        void center.offsetWidth;
+
+
+        center.style.animation =
+            "revealCenter 2.5s cubic-bezier(.16,1,.3,1) 6.3s forwards";
+
+        subtitle.style.animation =
+            "subtitleReveal 2s ease 7.5s forwards";
+    }
+);
 
 </script>
 
 </body>
 </html>
+
